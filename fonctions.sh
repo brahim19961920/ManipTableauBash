@@ -30,12 +30,38 @@ do
 done
 }
 
-#Appel des fonctions
+#Fonction retournant le minimum d'un tableau d'entiers
+Minimum_tableau(){
 
+minimum=${tab[0]}
+for element in ${tab[*]}
+do
+	if test $minimum -gt $element
+	then
+		let minimum=$element
+	fi
+done
+echo $minimum
+}
+
+#Fonction retournant le maximum d'un tableau d'entiers
+Maximum_tableau(){
+
+maximum=${tab[0]}
+for element in ${tab[*]}
+do
+	if test $maximum -lt $element
+	then
+		let maximum=$element
+	fi
+done
+echo $maximum
+}
+#Appel des fonctions
 Remplir_tableau
 Afficher_tableau
-
-
+echo "Le minimum de ce tableau est :$(Minimum_tableau)"
+echo "Le maximum de ce tableau est :$(Maximum_tableau)"
 
 
 
