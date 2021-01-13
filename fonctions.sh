@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#A rajouter vérification du type des entrées+ fonction de tri +min+ max+moyenne
+
 #fonction pour remplir un tableau d'entiers
 Remplir_tableau(){
 
