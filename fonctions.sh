@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#Dans ce fichier on manipule des tableaux pour se familiariser avec le syntaxe de bash
+
 #fonction pour remplir un tableau d'entiers
 Remplir_tableau(){
 
@@ -22,15 +24,28 @@ Afficher_tableau()
 {
 
 echo "Voici les élements du tableau :"	
-for element in ${tab[@]} # ou bien in ${{tab[*]}}
+
+#premiére méthode pour afficher les élements du tableau
+#for element in ${tab[@]} # ou bien in ${{tab[*]}}
+#	do
+#		echo $element
+#	done
+
+#2éme méthode
+
+taille=${#tab[@]}
+if test $taille -ne 0 
+then
+for i in $( eval  echo {0..$(($taille-1))})
 do
-	echo $element
+	echo ${tab[$i]}
 done
+fi
 }
 
 #Fonction retournant le minimum d'un tableau d'entiers
-Minimum_tableau(){
-
+Minimum_tableau()
+{
 #on vérifie si le tableau n'est pas vide
 #{#tab[@]} est la taille du tanleau
 if test ${#tab[@]} -eq 0
@@ -92,7 +107,41 @@ else
 	echo "La moyenne des éléments du tableau est $(expr "$somme/$nb_elements" | bc -l)"
 
 fi
+
 }
+
+#fonction pour trier un tableau d'entiers
+
+Tri_tableau()
+{
+#on vérifie que le tableau n'est pas vide
+if test ${#tab[@]} -eq 0
+then
+	echo "tableau vide"
+else
+	#taille du tableau
+	taille=${#tab[@]}
+	for i in $( eval echo {0..$(($taille-1))})
+	do
+		 indice_minimum=$i
+		
+		for j in $( eval echo {$(($i))..$(($taille-1))})
+		do
+			if test ${tab[$j]} -lt ${tab[$indice_minimum]}
+			then
+				let indice_minimum=$j
+			fi
+			
+		done
+		#permute
+		temp=${tab[$i]}
+		tab[$i]=${tab[$indice_minimum]}
+		tab[$indice_minimum]=$temp
+	done
+fi
+
+}
+
 
 #Appel des fonctions
 
@@ -106,8 +155,8 @@ Maximum_tableau
 
 Moyenne_tableau
 
+Tri_tableau
 
-
-
-
+echo "Le tableau aprés tri :"
+Afficher_tableau
 
